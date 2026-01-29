@@ -1,18 +1,8 @@
 import { Page } from '@playwright/test';
 import { BasePage } from './BasePage';
+import { SignUpLocators } from './Locators/signUpL';
 
 export class SignUpPage extends BasePage {
-  // Locators
-  private loginButton = this.page.getByRole('button', { name: /sign in|login/i });
-  private signUpButton = this.page.getByRole('button', { name: /sign up/i }).first();
-  private emailAddressInput = this.page.getByPlaceholder(/email|e-mail/i);
-  private continueButton = this.page.getByRole('button', { name: /continue/i });
-  private signUpUsingPasswordButton = this.page.getByRole('button', { name: /password|create password/i });
-  private newPasswordInput = this.page.getByLabel(/new password|password/i).first();
-  private confirmPasswordInput = this.page.locator('#confirmpasswordInput');
-  private signUpButtonF = this.page.locator('.SignupWithPasswordV2-module-scss-module__gXx8ca__signupButton')
-  private confirmationButton = this.page.getByRole('button', { name: /confirm|yes/i }).last();
-
   constructor(page: Page) {
     super(page);
   }
@@ -22,37 +12,41 @@ export class SignUpPage extends BasePage {
   }
 
   async clickLoginButton() {
-    await this.loginButton.click();
+    await this.page.getByRole('button', SignUpLocators.loginButton).click();
   }
 
   async clickSignUpButton() {
-    await this.signUpButton.click();
+    await this.page.getByRole('button', SignUpLocators.signUpButton).first().click();
   }
 
   async enterEmailAddress(email: string) {
-    await this.emailAddressInput.click();
-    await this.emailAddressInput.fill(email);
+    await this.page.getByPlaceholder(SignUpLocators.emailAddressInput).click();
+    await this.page.getByPlaceholder(SignUpLocators.emailAddressInput).fill(email);
   }
 
   async clickContinueButton() {
-    await this.continueButton.click();
+    await this.page.getByRole('button', SignUpLocators.continueButton).click();
   }
 
   async clickSignUpUsingPasswordButton() {
-    await this.signUpUsingPasswordButton.click();
+    await this.page.getByRole('button', SignUpLocators.signUpUsingPasswordButton).click();
   }
 
   async enterNewPassword(password: string) {
-    await this.newPasswordInput.click();
-    await this.newPasswordInput.fill(password);
+    await this.page.getByLabel(SignUpLocators.newPasswordInput).first().click();
+    await this.page.getByLabel(SignUpLocators.newPasswordInput).first().fill(password);
   }
 
   async enterConfirmPassword(password: string) {
-    await this.confirmPasswordInput.click();
-    await this.confirmPasswordInput.fill(password);
+    await this.page.locator(SignUpLocators.confirmPasswordInput).click();
+    await this.page.locator(SignUpLocators.confirmPasswordInput).fill(password);
   }
 
   async clickSignUpButtonF() {
-    await this.signUpButtonF.click();
+    await this.page.locator(SignUpLocators.signUpButtonF).click();
+  }
+
+  async clickConfirmationButton() {
+    await this.page.getByRole('button', SignUpLocators.confirmationButton).last().click();
   }
 }

@@ -12,7 +12,7 @@ export class BasePage {
    * Setup method - Navigate to the application URL
    */
   async setUp() {
-    await this.page.goto(this.baseUrl);
+    await this.page.goto(this.baseUrl, { waitUntil: 'domcontentloaded', timeout: 60000 });
   }
 
   /**
